@@ -3,9 +3,11 @@ import houndify
 import sys
 from gtts import gTTS 
 import os
+import base64
 
-CLIENT_ID = sys.argv[1]
-CLIENT_KEY = sys.argv[2]
+
+CLIENT_ID = "Rco-d2ARwyAUSvklEH_ePg=="
+CLIENT_KEY = "V6TzSgIOkx0CW4AkBSxgLNrcHMEZ26PSB4uLaG-n8t6PsjZSEzBF-aGfXQv-mWXha0_grVB-TO5MGdKhx9XNFA=="
 BUFFER_SIZE = 512
 
 #
@@ -18,23 +20,19 @@ class MyListener(houndify.HoundListener):
   def onFinalResponse(self, response):
     # Playing the converted file 
     response_text = response["AllResults"][0]["SpokenResponse"]
+    # get response audio bytes string
+    response_bytes = response["AllResults"][0]["ResponseAudioBytes"]
     os.system("say {}".format(response_text)) 
+    print("Response bytes:" + response_bytes)
     print("Final response: " + str(response))
-    # Language in which you want to convert 
-    #language = 'en'
-    
+
+    # convert bytes string to binary
+    decoded = base64.decodebytes(response_bytes.encode("ascii"))
+
+    # writes response to wav file
+    with open('myfile.wav', mode='bx') as f:
+      f.write(decoded)
       
-    # Passing the text and language to the engine,  
-    # here we have marked slow=False. Which tells  
-    # the module that the converted audio should  
-    # have a high speed 
-    # myobj = gTTS(text=response_text, lang=language, slow=False) 
-      
-    # # Saving the converted audio in a mp3 file named 
-    # # welcome  
-    # myobj.save("welcome.mp3") 
-      
-    
   
   def onError(self, err):
     print("Error: " + str(err))
@@ -42,6 +40,8 @@ class MyListener(houndify.HoundListener):
 
 client = houndify.StreamingHoundClient(CLIENT_ID, CLIENT_KEY, "test_user")
 client.setLocation(37.388309, -121.973968)
+client.setHoundRequestInfo("ResponseAudioVoice", "Sharon")
+client.setHoundRequestInfo("ResponseAudioShortOrLong", "Short")
 
 ## Uncomment the lines below to see an example of using a custom
 ## grammar for matching.  Use the file 'turnthelightson.wav' to try it.
