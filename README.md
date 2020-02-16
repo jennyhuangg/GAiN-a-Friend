@@ -1,6 +1,8 @@
 # GAiN-a-Friend
 Treehacks 2020. A GAN-generated virtual friend that allows older folks to have companionship.
 
+## Python Jupyter Notebook
+Allows you to record a question and receive a small talk response in audio.
 
 ## Python (Commandline Program)
 To run the houndify live small talk with voice and wav file response, go to houndify_python3_sdk_1.2.5 and then run: 
