@@ -1,0 +1,12 @@
+{
+  
+  "clientId": "Rco-d2ARwyAUSvklEH_ePg==",
+  "clientKey": "V6TzSgIOkx0CW4AkBSxgLNrcHMEZ26PSB4uLaG-n8t6PsjZSEzBF-aGfXQv-mWXha0_grVB-TO5MGdKhx9XNFA==",
+  
+  "port": 3446,
+
+  "https": false,
+  "sslKeyFile": "server.key",
+  "sslCrtFile": "server.crt"  
+
+}
